@@ -2,197 +2,223 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Ferramentas de IA — Sérgio Akira Sato</title>
+
+  <!-- QRCode.js oficial -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
   <style>
-    :root{
-      --bg:#0f1216; --fg:#e8eef5; --muted:#9fb0c3; --card:#151a21; --accent:#6dd3ff;
+    :root {
+      --bg:#0f1216; --fg:#e8eef5; --muted:#9fb0c3; --card:#151a21;
     }
-    *{box-sizing:border-box}
-    body{
-      margin:0; font-family:system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      background:var(--bg); color:var(--fg); display:flex; min-height:100vh;
-      align-items:center; justify-content:center; padding:24px;
+    * { box-sizing: border-box; }
+    body {
+      margin:0; font-family:Arial, sans-serif;
+      background:var(--bg); color:var(--fg);
+      display:flex; align-items:center; justify-content:center;
+      min-height:100vh; padding:24px;
     }
-    .wrap{
-      width:100%; max-width:980px; background:linear-gradient(180deg,#121821,#0f141a);
-      border:1px solid #202835; border-radius:24px; padding:24px; box-shadow:0 10px 40px rgba(0,0,0,.35);
+    .wrap {
+      width:100%; max-width:980px;
+      background:linear-gradient(180deg,#121821,#0f141a);
+      border:1px solid #202835; border-radius:24px;
+      padding:24px; box-shadow:0 10px 40px rgba(0,0,0,0.35);
     }
-    header{display:flex; flex-wrap:wrap; gap:12px; align-items:center; justify-content:space-between; margin-bottom:20px}
-    h1{font-size:clamp(18px,3.2vw,28px); margin:0}
-    .sub{color:var(--muted); font-size:14px}
-    .grid{
+    header {
+      display:flex; flex-wrap:wrap; gap:12px;
+      align-items:center; justify-content:space-between;
+      margin-bottom:20px;
+    }
+    h1 { font-size:clamp(18px,3vw,28px); margin:0; }
+    .sub { color:var(--muted); font-size:14px; }
+
+    .grid {
       display:grid; grid-template-columns:1.2fr .8fr; gap:20px;
     }
-    @media (max-width:860px){ .grid{grid-template-columns:1fr} }
-    .stage{
-      background:var(--card); border:1px solid #1f2733; border-radius:20px; padding:24px; text-align:center;
+    @media (max-width:860px) {
+      .grid { grid-template-columns:1fr; }
     }
-    .title{
-      font-size:clamp(18px,2.4vw,22px); margin:0 0 10px 0;
+
+    .stage {
+      background:var(--card); border:1px solid #1f2733;
+      border-radius:20px; padding:24px; text-align:center;
     }
-    .qrbox{
-      display:flex; align-items:center; justify-content:center; padding:16px;
+    .title { font-size:20px; margin-bottom:10px; }
+    .qrbox { display:flex; justify-content:center; padding:16px; }
+    .qr {
+      background:#fff; border-radius:16px; padding:20px;
+      border:8px solid #0d1117;
+      width:300px; height:300px;
+      display:flex; align-items:center; justify-content:center;
     }
-    .qr{
-      width:min(320px,70vw); height:min(320px,70vw);
-      background:#fff; border-radius:16px; padding:12px; border:6px solid #0d1117;
+    .controls { display:flex; gap:12px; justify-content:center; margin-top:16px; }
+    button {
+      background:#111722; color:#eaf4ff; border:1px solid #2a3648;
+      padding:12px 16px; border-radius:12px;
+      cursor:pointer; font-weight:600; font-size:15px;
     }
-    .controls{display:flex; gap:12px; justify-content:center; margin-top:16px}
-    button{
-      background:#111722; color:#eaf4ff; border:1px solid #2a3648; padding:12px 16px;
-      border-radius:12px; cursor:pointer; font-weight:600; font-size:15px;
+    button:hover { transform:translateY(-1px); }
+
+    .cta {
+      display:inline-block; margin-top:14px;
+      padding:10px 14px; border-radius:10px;
+      background:#0e6ba8; text-decoration:none;
+      color:#fff; font-weight:600;
     }
-    button:hover{border-color:#3b4e6b; transform:translateY(-1px)}
-    .cta{
-      display:inline-block; margin-top:14px; padding:10px 14px; border-radius:10px;
-      background:#0e6ba8; text-decoration:none; color:#fff; font-weight:600; border:1px solid #1384cc;
+    .progress { color:var(--muted); font-size:13px; margin-top:10px; }
+
+    /* Lado direito */
+    .rightBox { display:flex; flex-direction:column; gap:12px; }
+    .list, .qrPage {
+      background:var(--card); border:1px solid #1f2733;
+      border-radius:16px; padding:16px;
     }
-    .list{
-      background:var(--card); border:1px solid #1f2733; border-radius:20px; padding:18px;
+    .item {
+      display:flex; justify-content:space-between; align-items:center;
+      border-bottom:1px dotted #243042; padding:8px 0;
+      cursor:pointer; position:relative;
     }
-    .item{display:flex; align-items:center; justify-content:space-between; gap:10px; padding:10px 0;
-      border-bottom:1px dashed #243042}
-    .item:last-child{border-bottom:none}
-    .name{font-weight:600}
-    .url{color:var(--muted); font-size:12px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; max-width:60%}
-    .small{color:var(--muted); font-size:12px}
-    .progress{margin-top:10px; color:var(--muted); font-size:13px}
-    .badge{background:#0d2133; color:#93d8ff; padding:6px 10px; border-radius:999px; border:1px solid #1e3953; font-size:12px; font-weight:700}
-    .topline{display:flex; align-items:center; gap:10px}
-    .footer{margin-top:14px; display:flex; gap:10px; flex-wrap:wrap}
-    .ghost{background:transparent}
-    .rightBox{display:flex; flex-direction:column; gap:12px}
-    .qrPage{
-      background:#0b1622; border:1px solid #1a2a3e; border-radius:16px; padding:16px; text-align:center;
+    .item:last-child { border-bottom:none; }
+    .url { color:var(--muted); font-size:12px; }
+
+    /* Efeito hover */
+    .item:hover {
+      background-color:#1e2b3a;
+      transform:translateX(4px);
     }
-    .qrPage .qr{ width:min(260px,70vw); height:min(260px,70vw); }
-    .note{font-size:12px; color:var(--muted); margin-top:8px}
+
+    /* Ferramenta ativa */
+    .item.active {
+      background-color:#223041;
+      font-weight:bold;
+    }
+    .item.active::before {
+      content:"→";
+      color:#6dd3ff;
+      position:absolute;
+      left:-18px;
+      font-weight:bold;
+    }
+
+    .qrPage .qr {
+      width:235px; height:235px; margin:auto;
+    }
+    .small { color:var(--muted); font-size:12px; }
   </style>
 </head>
 <body>
-  <div class="wrap">
-    <header>
-      <div class="topline">
-        <span class="badge">AO VIVO</span>
-        <h1>Ferramentas de IA — <span style="color:#8fd3ff">Sérgio Akira Sato</span></h1>
+
+<div class="wrap">
+
+  <header>
+    <h1>CEG IA 2025 — <span style="color:#8fd3ff">Sérgio Akira Sato</span> — Hands On</h1>
+    <div class="sub">Use ⬅️ ⟶ para trocar os QR Codes</div>
+  </header>
+
+  <div class="grid">
+
+    <!-- QR principal -->
+    <section class="stage">
+      <div id="toolName" class="title">Carregando...</div>
+      <div class="qrbox"><div id="qr" class="qr"></div></div>
+      <div class="controls">
+        <button onclick="prev()">⬅️ Anterior</button>
+        <button onclick="next()">Próximo ➡️</button>
       </div>
-      <div class="sub">Passe os QR Codes com os botões &nbsp; ⟵⟶ &nbsp; e peça para o público escanear.</div>
-    </header>
+      <div id="progress" class="progress"></div>
+      <a id="visit" class="cta" target="_blank" rel="noopener">Acessar</a>
+    </section>
 
-    <div class="grid">
-      <section class="stage">
-        <div id="toolName" class="title">—</div>
-        <div class="qrbox">
-          <div id="qr" class="qr" title="Aponte a câmera do celular"></div>
-        </div>
-        <div class="controls">
-          <button onclick="prev()">⬅️ Anterior</button>
-          <button onclick="next()">Próximo ➡️</button>
-        </div>
-        <div class="progress" id="progress"></div>
-        <a id="visit" class="cta" href="#" target="_blank" rel="noopener">Acessar agora</a>
-      </section>
+    <!-- Lista + QR da Página -->
+    <aside class="rightBox">
+      <div class="list">
+        <div class="item" data-url="https://chatgpt.com"><span>ChatGPT</span><span class="url">chatgpt.com</span></div>
+        <div class="item" data-url="https://gemini.google.com"><span>Gemini</span><span class="url">gemini.google.com</span></div>
+        <div class="item" data-url="https://chat.deepseek.com"><span>DeepSeek</span><span class="url">chat.deepseek.com</span></div>
+        <div class="item" data-url="https://grok.com"><span>Grok</span><span class="url">grok.com</span></div>
+        <div class="item" data-url="https://www.napkin.ai"><span>Napkin AI</span><span class="url">napkin.ai</span></div>
+        <div class="item" data-url="https://www.pageon.ai"><span>Pageon AI</span><span class="url">pageon.ai</span></div>
+        <div class="item" data-url="https://bolt.new"><span>Bolt.new</span><span class="url">bolt.new</span></div>
+        <div class="item" data-url="https://elevenlabs.io"><span>ElevenLabs</span><span class="url">elevenlabs.io</span></div>
+        <div class="item" data-url="https://stabledifffusion.com"><span>Stable Diffusion</span><span class="url">stabledifffusion.com</span></div>
+        <div class="item" data-url="https://hailuoai.video"><span>HailuoAI</span><span class="url">hailuoai.video</span></div>
+        <div class="item" data-url="https://invideo.io"><span>InVideo</span><span class="url">invideo.io</span></div>
+      </div>
 
-      <aside class="rightBox">
-        <div class="list">
-          <div class="item"><span class="name">ChatGPT</span><span class="url">https://chatgpt.com/</span></div>
-          <div class="item"><span class="name">Google Gemini</span><span class="url">https://gemini.google.com/</span></div>
-          <div class="item"><span class="name">DeepSeek</span><span class="url">https://chat.deepseek.com/</span></div>
-          <div class="item"><span class="name">Grok</span><span class="url">https://grok.com/</span></div>
-          <div class="item"><span class="name">Napkin AI</span><span class="url">https://www.napkin.ai/</span></div>
-          <div class="item"><span class="name">Pageon AI</span><span class="url">https://www.pageon.ai/</span></div>
-          <div class="item"><span class="name">Bolt.new</span><span class="url">https://bolt.new/</span></div>
-          <div class="item"><span class="name">ElevenLabs</span><span class="url">https://elevenlabs.io/</span></div>
-          <div class="item"><span class="name">Stable Diffusion</span><span class="url">https://stabledifffusion.com/</span></div>
-          <div class="item"><span class="name">HailuoAI Video</span><span class="url">https://hailuoai.video/</span></div>
-          <div class="item"><span class="name">InVideo</span><span class="url">https://invideo.io/</span></div>
-        </div>
+      <div class="qrPage">
+        <div class="small">QR da página:</div>
+        <div id="qrPage" class="qr"></div>
+        <div class="small" id="pageUrl"></div>
+      </div>
+    </aside>
 
-        <div class="qrPage">
-          <div class="small">QR da página principal</div>
-          <div id="qrPage" class="qr"></div>
-          <div class="note">Projete este QR no início. Link: <span id="pageUrl" class="small"></span></div>
-          <div class="footer">
-            <button class="ghost" onclick="window.print()">🖨️ Imprimir</button>
-            <button class="ghost" onclick="downloadPNG()">⬇️ Baixar QR (PNG)</button>
-          </div>
-        </div>
-      </aside>
-    </div>
   </div>
 
-  <!-- QRCode.js (MIT) embutido para gerar QR localmente -->
-  <script>
-  /* qrcode.js (minimal) - Kazuhiko Arase (MIT) - reduzido */
-  (function(){function p(a){this.mode=c.MODE_8BIT_BYTE;this.data=a}function q(a,b){this.typeNumber=a;this.errorCorrectLevel=b;this.modules=null;this.moduleCount=0;this.dataList=[];this.dataCache=null}var c={PAD0:236,PAD1:17,MODE_8BIT_BYTE:4,ErrorCorrectLevel:{L:1,M:0,Q:3,H:2}};function r(a,b){this.buffer=[];this.length=0;void 0!==a&&void 0!==b&&this.append(a,b)}r.prototype={get:function(a){return 1==(this.buffer[Math.floor(a/8)]>>>7-a%8&1)},put:function(a,b){for(var d=0;d<b;d++)this.putBit(1==(a>>>b-d-1&1))},putBit:function(a){var b=Math.floor(this.length/8);this.buffer.length<=b&&this.buffer.push(0);a&&(this.buffer[b]|=128>>>this.length%8);this.length++}};p.prototype={getLength:function(){return this.data.length},write:function(a){for(var b=0;b<this.data.length;b++)a.put(this.data.charCodeAt(b),8)}};
-  var t=[[],[/*1*/[0,7,1,19]],[/*2*/[0,10,1,34]],[/*3*/[0,15,1,55]],[/*4*/[0,20,1,80]],[/*5*/[0,26,1,108]],[/*6*/[0,18,2,68]],[/*7*/[0,20,2,78]],[/*8*/[0,24,2,97]],[/*9*/[0,30,2,116]],[/*10*/[0,18,2,68]],[/*11*/[0,20,2,77]],[/*12*/[0,24,2,96]],[/*13*/[0,26,2,105]],[/*14*/[0,30,4,75]]]; /* simplificado */
-  function u(a){for(var b=1;14>=b;b++){var d=t[b][0];if(a<=t[b][2]*t[b][3])return b}return 14}
-  q.prototype={addData:function(a){this.dataList.push(new p(a));this.dataCache=null},isDark:function(a,b){if(null==this.modules)throw"QR not built";return this.modules[a][b]},getModuleCount:function(){return this.moduleCount},make:function(){if(null!=this.modules)return;var a=1;this.typeNumber=u(this.getDataLength());this.moduleCount=4*this.typeNumber+17;this.modules=Array(this.moduleCount);for(var b=0;b<this.moduleCount;b++){this.modules[b]=Array(this.moduleCount);for(var d=0;d<this.moduleCount;d++)this.modules[b][d]=!1}this.mapData();this.dataCache=!0},
-  getDataLength:function(){for(var a=0,b=0;b<this.dataList.length;b++)a+=this.dataList[b].getLength();return a},
-  mapData:function(){var a=new r;for(var b=0;b<this.dataList.length;b++){var d=this.dataList[b];a.put(c.MODE_8BIT_BYTE,4);a.put(d.getLength(),8);d.write(a)}a.put(c.PAD0,8);a.put(c.PAD1,8);for(b=0;b<this.moduleCount;b++)for(d=0;d<this.moduleCount;d++)this.modules[b][d]=((b+d)%3+2)%2}};
-  function QR(data){var qrc=new q(1,c.ErrorCorrectLevel.M);qrc.addData(data);qrc.make();var mc=qrc.getModuleCount(),s=8,cnv=document.createElement('canvas');cnv.width=mc*s;cnv.height=mc*s;var ctx=cnv.getContext('2d');ctx.fillStyle="#fff";ctx.fillRect(0,0,cnv.width,cnv.height);ctx.fillStyle="#000";for(var r0=0;r0<mc;r0++)for(var c0=0;c0<mc;c0++)if(qrc.isDark(r0,c0))ctx.fillRect(r0*s,c0*s,s,s);return cnv}
-  window.QR=QR;
-  })();
-  </script>
+</div>
 
-  <script>
-    // URL pública esperada da página hospedada no GitHub Pages
-    const PAGE_URL = "https://sergioakirasato.github.io/palestrIA";
+<script>
+  const PAGE_URL = "https://sergioakirasato.github.io/palestrIA";
 
-    // Ferramentas
-    const tools = [
-      { name: "ChatGPT", url: "https://chatgpt.com/" },
-      { name: "Google Gemini", url: "https://gemini.google.com/" },
-      { name: "DeepSeek", url: "https://chat.deepseek.com/" },
-      { name: "Grok", url: "https://grok.com/" },
-      { name: "Napkin AI", url: "https://www.napkin.ai/" },
-      { name: "Pageon AI", url: "https://www.pageon.ai/" },
-      { name: "Bolt.new (Criação de Sites)", url: "https://bolt.new/" },
-      { name: "ElevenLabs (Voz IA)", url: "https://elevenlabs.io/" },
-      { name: "Stable Diffusion (Imagens)", url: "https://stabledifffusion.com/" },
-      { name: "HailuoAI Vídeo", url: "https://hailuoai.video/" },
-      { name: "InVideo", url: "https://invideo.io/" }
-    ];
+  const tools = [
+    { name:"ChatGPT", url:"https://chatgpt.com/" },
+    { name:"Google Gemini", url:"https://gemini.google.com/" },
+    { name:"DeepSeek", url:"https://chat.deepseek.com/" },
+    { name:"Grok", url:"https://grok.com/" },
+    { name:"Napkin AI", url:"https://www.napkin.ai/" },
+    { name:"Pageon AI", url:"https://www.pageon.ai/" },
+    { name:"Bolt.new", url:"https://bolt.new/" },
+    { name:"ElevenLabs", url:"https://elevenlabs.io/" },
+    { name:"Stable Diffusion", url:"https://stabledifffusion.com/" },
+    { name:"HailuoAI", url:"https://hailuoai.video/" },
+    { name:"InVideo", url:"https://invideo.io/" }
+  ];
 
-    let index = 0;
+  let index = 0;
 
-    function renderQR(targetEl, text) {
-      targetEl.innerHTML = "";
-      const canvas = QR(text);
-      canvas.style.width = "100%";
-      canvas.style.height = "100%";
-      targetEl.appendChild(canvas);
-      return canvas;
-    }
+  function highlightActiveItem() {
+    document.querySelectorAll('.list .item').forEach((item, i) => {
+      item.classList.toggle('active', i === index);
+    });
+  }
 
-    function updateSlide() {
-      const current = tools[index];
-      document.getElementById("toolName").textContent = current.name;
-      document.getElementById("visit").href = current.url;
-      document.getElementById("visit").textContent = "Acessar " + current.name;
-      renderQR(document.getElementById("qr"), current.url);
-      document.getElementById("progress").textContent = (index+1) + " / " + tools.length;
-    }
+  function generateSlideQR() {
+    const tool = tools[index];
+    document.getElementById("toolName").innerText = tool.name;
+    document.getElementById("visit").href = tool.url;
+    document.getElementById("progress").innerText = `${index+1} / ${tools.length}`;
 
-    function next(){ index = (index + 1) % tools.length; updateSlide(); }
-    function prev(){ index = (index - 1 + tools.length) % tools.length; updateSlide(); }
+    const qrBox = document.getElementById("qr");
+    qrBox.innerHTML = "";
+    new QRCode(qrBox, { text: tool.url, width:220, height:220 });
 
-    // QR da página principal
-    const pageUrlEl = document.getElementById("pageUrl");
-    pageUrlEl.textContent = PAGE_URL;
-    const pageQrCanvas = renderQR(document.getElementById("qrPage"), PAGE_URL);
+    highlightActiveItem();
+  }
 
-    function downloadPNG(){
-      const link = document.createElement('a');
-      link.download = 'qr-palestrIA.png';
-      link.href = pageQrCanvas.toDataURL('image/png');
-      link.click();
-    }
-    window.downloadPNG = downloadPNG;
+  function generatePageQR() {
+    document.getElementById("pageUrl").innerText = PAGE_URL;
+    const qrBox = document.getElementById("qrPage");
+    qrBox.innerHTML = "";
+    new QRCode(qrBox, { text: PAGE_URL, width:200, height:200 });
+  }
 
-    // inicializa
-    updateSlide();
-  </script>
+  function next(){ index = (index + 1) % tools.length; generateSlideQR(); }
+  function prev(){ index = (index - 1 + tools.length) % tools.length; generateSlideQR(); }
+
+  // Clique nos itens da lista
+  document.querySelectorAll('.list .item').forEach((item, i) => {
+    item.addEventListener('click', () => {
+      index = i;
+      generateSlideQR();
+      window.open(item.getAttribute('data-url'), "_blank");
+    });
+  });
+
+  document.addEventListener("DOMContentLoaded", () => {
+    generateSlideQR();
+    generatePageQR();
+  });
+</script>
+
 </body>
 </html>
