@@ -40,16 +40,11 @@
       height:60px;
       border-radius:50%;
       border:3px solid #fff;
-      background:linear-gradient(45deg, #0e6ba8, #8fd3ff);
+      overflow:hidden;
       display:flex;
       align-items:center;
       justify-content:center;
-      color:white;
-      font-weight:bold;
-      font-size:14px;
-      text-align:center;
-      line-height:1.2;
-      overflow:hidden;
+      background:#111; /* fallback quando imagem não carregar */
     }
     .profile-photo img {
       width:100%;
@@ -65,11 +60,6 @@
       font-size:18px;
       font-weight:bold;
       color:var(--accent);
-      margin:0;
-    }
-    .profile-text .year {
-      font-size:14px;
-      color:var(--muted);
       margin:0;
     }
     .header-main {
@@ -418,7 +408,7 @@
   <!-- Header com foto de perfil -->
   <div class="profile-header">
     <div class="profile-photo">
-      <img src="WhatsApp Image 2019-03-30 at 12.35.52_Transparent.jpg" alt="MentorIA2025" onerror="this.style.display='none'; this.parentNode.innerHTML='MentorIA'; this.parentNode.style.display='flex'; this.parentNode.style.alignItems='center'; this.parentNode.style.justifyContent='center';">
+      <img src="WhatsApp Image 2019-03-30 at 12.35.52_Transparent.jpg" alt="MentorIA2025" onerror="this.style.display='none'; this.parentNode.innerHTML='MentorIA'; this.parentNode.style.display='flex'; this.parentNode.style.alignItems='center'; this.parentNode.style.justifyContent='center'; this.parentNode.style.background='linear-gradient(45deg, #0e6ba8, #8fd3ff)'; this.parentNode.style.color='white'; this.parentNode.style.fontWeight='bold';">
     </div>
     <div class="profile-text">
       <div class="mentor">MentorIA2025</div>
