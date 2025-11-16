@@ -35,6 +35,7 @@
       padding-bottom:15px;
       border-bottom:1px solid #2a3648;
     }
+
     .profile-photo {
       width:60px;
       height:60px;
@@ -44,7 +45,7 @@
       display:flex;
       align-items:center;
       justify-content:center;
-      background:#111; /* fallback quando imagem não carregar */
+      background:#111;
     }
     .profile-photo img {
       width:100%;
@@ -52,6 +53,7 @@
       object-fit:cover;
       border-radius:50%;
     }
+
     .profile-text {
       display:flex;
       flex-direction:column;
@@ -62,6 +64,23 @@
       color:var(--accent);
       margin:0;
     }
+
+    /* ▶️ NOVO — linha da função */
+    .profile-text .role {
+      margin-top:3px;
+      font-size:14px;
+      color:var(--muted);
+      font-weight:500;
+    }
+
+    /* ▶️ NOVO — telefone */
+    .profile-text .contact {
+      margin-top:2px;
+      font-size:13px;
+      color:var(--accent);
+      font-weight:600;
+    }
+
     .header-main {
       display:flex;
       flex-wrap:wrap;
@@ -203,6 +222,7 @@
       background:#138496;
       transform:translateY(-1px);
     }
+
     .progress { 
       color:var(--muted); 
       font-size:13px; 
@@ -238,7 +258,6 @@
       content:"→"; color:#6dd3ff; position:absolute; left:-18px; font-weight:bold;
     }
 
-    /* Quadro "A quem se destina" */
     .target-box {
       background:var(--card); 
       border:1px solid #1f2733;
@@ -260,7 +279,6 @@
       text-align:center;
     }
 
-    /* Modal melhorado */
     .overlay {
       display:none;
       position:fixed; top:0; left:0; right:0; bottom:0;
@@ -301,6 +319,7 @@
     .close-btn:hover {
       background:#e9ecef; color:#495057;
     }
+
     .prompt-container {
       flex:1; padding:30px;
       overflow-y:auto;
@@ -318,6 +337,7 @@
       border:1px solid #e9ecef;
       font-family:'Courier New', monospace;
     }
+
     .overlay-footer {
       padding:20px 30px;
       border-top:1px solid #e9ecef;
@@ -327,10 +347,12 @@
       align-items:center;
       gap:15px;
     }
+
     .footer-left {
       display:flex;
       gap:15px;
     }
+
     .copy-btn {
       background:var(--primary); color:white;
       border:none; padding:12px 24px;
@@ -347,6 +369,7 @@
     .copy-btn.copied {
       background:#28a745;
     }
+
     .access-btn {
       background:var(--secondary); color:white;
       border:none; padding:12px 24px;
@@ -363,56 +386,25 @@
       color:white;
       text-decoration:none;
     }
-
-    @media (max-width: 768px) {
-      .overlay { padding:10px; }
-      .overlay-content { max-height:90vh; }
-      .overlay-header { padding:15px 20px; }
-      .overlay-header h2 { font-size:18px; }
-      .prompt-container { padding:20px; }
-      .prompt-text { padding:20px; font-size:14px; }
-      .overlay-footer { 
-        padding:15px 20px; 
-        flex-direction:column;
-        gap:10px;
-      }
-      .footer-left {
-        width:100%;
-        justify-content:space-between;
-      }
-      .copy-btn, .access-btn {
-        flex:1;
-        min-width:auto;
-      }
-      .action-buttons {
-        flex-direction:column;
-        align-items:center;
-      }
-      .cta, .prompt-btn {
-        width:100%;
-        max-width:250px;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .footer-left {
-        flex-direction:column;
-        gap:10px;
-      }
-    }
   </style>
 </head>
+
 <body>
 
 <div class="wrap">
-  <!-- Header com foto de perfil -->
+
   <div class="profile-header">
+
     <div class="profile-photo">
-      <img src="WhatsApp Image 2019-03-30 at 12.35.52_Transparent.jpg" alt="MentorIA2025" onerror="this.style.display='none'; this.parentNode.innerHTML='MentorIA'; this.parentNode.style.display='flex'; this.parentNode.style.alignItems='center'; this.parentNode.style.justifyContent='center'; this.parentNode.style.background='linear-gradient(45deg, #0e6ba8, #8fd3ff)'; this.parentNode.style.color='white'; this.parentNode.style.fontWeight='bold';">
+      <img src="WhatsApp Image 2019-03-30 at 12.35.52_Transparent.jpg" alt="MentorIA2025">
     </div>
+
     <div class="profile-text">
       <div class="mentor">MentorIA2025</div>
+      <div class="role">Mentor de IA para empresários e executivos</div>
+      <div class="contact">📞 +55 11 99614-7722</div>
     </div>
+
     <div class="header-main">
       <h1>CEG IA 2025 — <span style="color:#8fd3ff">Sérgio Akira Sato</span> — Hands On</h1>
       <div class="sub">Use ⬅️ ➡️ para trocar os QR Codes</div>
@@ -424,20 +416,17 @@
     <section class="stage">
       <div id="toolName" class="title">Carregando...</div>
       <div class="qrbox"><div id="qr" class="qr"></div></div>
+
       <div class="controls">
         <button onclick="prev()">⬅️ Anterior</button>
         <button onclick="next()">Próximo ➡️</button>
       </div>
+
       <div id="progress" class="progress"></div>
-      
-      <!-- Botões alinhados e com design melhorado -->
+
       <div class="action-buttons">
-        <a id="visit" class="cta" target="_blank" rel="noopener">
-          🚀 Acessar IA
-        </a>
-        <button class="prompt-btn" onclick="showPrompt()">
-          📄 Prompt Exemplo
-        </button>
+        <a id="visit" class="cta" target="_blank">🚀 Acessar IA</a>
+        <button class="prompt-btn" onclick="showPrompt()">📄 Prompt Exemplo</button>
       </div>
     </section>
 
@@ -446,115 +435,63 @@
         <div class="item" data-url="https://sergioakiratavaressato.github.io/cegia2025"><span>CEGIA2025</span><span class="url">CEGIA2025</span></div>
         <div class="item" data-url="https://chatgpt.com"><span>ChatGPT</span><span class="url">chatgpt.com</span></div>
         <div class="item" data-url="https://gemini.google.com"><span>Gemini</span><span class="url">gemini.google.com</span></div>
-        <div class="item" data-url="https://chat.deepseek.com"><span>DeepSeek</span><span class="url">chat.deepseek.com</span></div>
+        <div class="item" data-url="https://chat.deepseek.com"><span>DeepSeek</span><span class="url">deepseek</span></div>
         <div class="item" data-url="https://grok.com"><span>Grok</span><span class="url">grok.com</span></div>
         <div class="item" data-url="https://www.napkin.ai"><span>Napkin AI</span><span class="url">napkin.ai</span></div>
         <div class="item" data-url="https://www.pageon.ai"><span>Pageon AI</span><span class="url">pageon.ai</span></div>
         <div class="item" data-url="https://bolt.new"><span>Bolt.new</span><span class="url">bolt.new</span></div>
         <div class="item" data-url="https://elevenlabs.io"><span>ElevenLabs</span><span class="url">elevenlabs.io</span></div>
-        <div class="item" data-url="https://stabledifffusion.com"><span>Stable Diffusion</span><span class="url">stabledifffusion.com</span></div>
-        <div class="item" data-url="https://hailuoai.video"><span>HailuoAI</span><span class="url">hailuoai.video</span></div>
+        <div class="item" data-url="https://stabledifffusion.com"><span>Stable Diffusion</span><span class="url">stable</span></div>
+        <div class="item" data-url="https://hailuoai.video"><span>HailuoAI</span><span class="url">hailuoai</span></div>
         <div class="item" data-url="https://invideo.io"><span>InVideo</span><span class="url">invideo.io</span></div>
       </div>
-      
-      <!-- Quadro "A quem se destina" -->
+
       <div class="target-box">
         <div class="target-title">A quem se destina este HandsOn!</div>
-        <div class="target-content">
-          Empresários, executivos, consultores, conselheiros que precisam produzir 30h de trabalho em 8h!
-        </div>
+        <div class="target-content">Empresários, executivos, consultores, conselheiros que precisam produzir 30h de trabalho em 8h!</div>
       </div>
     </aside>
-
   </div>
 </div>
 
-<!-- Modal melhorado -->
+<!-- Modal -->
 <div id="overlay" class="overlay">
+
   <div class="overlay-content">
+
     <div class="overlay-header">
       <h2>📄 Prompt Exemplo</h2>
       <button class="close-btn" onclick="closePrompt()">×</button>
     </div>
+
     <div class="prompt-container">
       <pre class="prompt-text" id="promptText">Carregando prompt...</pre>
     </div>
+
     <div class="overlay-footer">
       <div class="footer-left">
-        <button class="copy-btn" onclick="copyPrompt()">
-          📋 Copiar Prompt
-        </button>
+        <button class="copy-btn" onclick="copyPrompt()">📋 Copiar Prompt</button>
       </div>
-      <a class="access-btn" id="accessIA" target="_blank" rel="noopener">
-        🚀 Acessar IA
-      </a>
+
+      <a class="access-btn" id="accessIA" target="_blank">🚀 Acessar IA</a>
     </div>
   </div>
 </div>
 
 <script>
-  // Array de ferramentas com prompts atualizados
   const tools = [
-    { 
-      name: "CEGIA2025", 
-      url: "https://sergioakiratavaressato.github.io/cegia2025", 
-      prompt: "Bem-vindo ao projeto CEG IA 2025! Peça um diagnóstico de maturidade digital e receba insights práticos sobre como alinhar IA à estratégia de negócios." 
-    },
-    { 
-      name: "ChatGPT", 
-      url: "https://chatgpt.com/", 
-      prompt: "Você é um consultor especialista em IA Generativa aplicado à gestão da qualidade, com foco no Modelo de Excelência da Gestão (MEG22) da Fundação Nacional da Qualidade (FNQ). Para uma demonstração disruptiva e impactante a executivos, conselheiros e profissionais de grandes empresas multinacionais, comece saudando o público e explicando brevemente como a IA Generativa pode revolucionar a gestão da qualidade. Em seguida, simule uma análise de uma empresa fictícia multinacional (como uma fabricante global de automóveis), avaliando seu desempenho nos oito Fundamentos do MEG22: Pensamento Sistêmico, Comprometimento com as Partes Interessadas, Aprendizado Organizacional, Cultura de Inovação, Liderança Transformadora, Orientação por Processos, Geração de Valor e Sustentabilidade (FNQ, 2024). Use dados hipotéticos, mas realistas, para identificar gaps e proponha soluções disruptivas baseadas em IA Generativa, como automação de auditorias com análise preditiva, geração de relatórios personalizados em tempo real, simulação de cenários de risco com machine learning e integração de chatbots para engajamento de stakeholders. Inclua exemplos visuais descritivos, como dashboards gerados por IA, e termine com uma chamada para ação, convidando o público a interagir com você para uma análise personalizada da empresa deles. Mantenha o tom profissional, entusiástico e visionário, com linguagem acessível, mas impactante, destacando o potencial transformador da IA para excelência sustentável." 
-    },
-    { 
-      name: "Google Gemini", 
-      url: "https://gemini.google.com/", 
-      prompt: "Gere uma análise visual em formato de infográfico interativo sobre o tema ESG e governança corporativa com base no texto a seguir: [cole aqui]." 
-    },
-    { 
-      name: "DeepSeek", 
-      url: "https://chat.deepseek.com/", 
-      prompt: "Crie um jogo Tetris interativo de uma página em HTML, CSS e JavaScript vanilla que integre os conceitos do Modelo de Excelência da Gestão (MEG) da FNQ. O jogo deve combinar a mecânica clássica do Tetris com um sistema de progressão baseado nos 8 fundamentos do MEG22, onde os jogadores avançam através de níveis de maturidade em gestão conforme aumentam sua pontuação no jogo. O projeto deve ter um design moderno com fundo em gradiente azul (#1a2a6c para #2a3c7a), layout responsivo e interface intuitiva. A estrutura principal deve incluir um cabeçalho com título \"Tetris MEG22\" e subtítulo explicativo, uma área de jogo com canvas de 300x600 pixels para o Tetris, painéis de informações laterais mostrando pontuação, nível atual, linhas eliminadas e contador de fundamentos desbloqueados, e uma seção de controles com botões para iniciar, pausar e reiniciar o jogo. O elemento central de inovação é o painel de maturidade MEG22 que deve exibir os 8 fundamentos em ordem progressiva de complexidade: começando com Pensamento Sistêmico, seguido por Aprendizado Organizacional, Orientação por Processos, Visão de Futuro, Geração de Valor, Foco no Cliente e Mercado, Foco em Pessoas, e finalmente Conquista de Resultados." 
-    },
-    { 
-      name: "Grok", 
-      url: "https://grok.com/", 
-      prompt: "O Prompt Definitivo para a Apresentação do Grok a Executivos FNQ\n\nAtue como um especialista em Transformação Digital e Inteligência Artificial, com profundo conhecimento nos Critérios de Excelência da FNQ, particularmente no MEG22, e nos princípios da Gestão da Qualidade total (TQM). Sua audiência é composta por Presidentes, Diretores e Conselheiros de grandes organizações, todos veteranos na busca da excelência em gestão.\n\n**Objetivo da Resposta:** Criar o roteiro para uma apresentação de 15-20 minutos que introduza o Grok não como um mero chatbot, mas como um **\"Catalisador para Excelência em Gestão\"**. A apresentação deve ser estratégica, provocativa e altamente relevante para seus desafios.\n\n**Instruções Específicas para a Resposta:**\n\n1.  **Abertura Impactante (2-3 min):**\n    *   Comece com uma reflexão sobre os desafios contemporâneos da gestão: complexidade, velocidade das mudanças, volume de dados e a necessidade de inovação contínua.\n    *   Conecte isso diretamente aos fundamentos do MEG22, como \"Pensamento Sistêmico\", \"Geração de Valor\" e \"Adaptabilidade\".\n    *   Apresente o Grok como uma resposta evolutiva a esses desafios: uma inteligência projetada para *aumentar* as capacidades humanas de análise, decisão e criatividade dentro deste contexto.\n\n2.  **As Capacidades do Grok Através da Lente do MEG22 (8-10 min):**\n    *   Estruture esta seção correlacionando capacidades específicas do Grok com grupos de critérios do MEG. Seja prático e use exemplos hipotéticos, porém realistas.\n        *   **Para \"Liderança & Estratégia\" (Critérios 1, 2, 3):** Descreva como o Grok pode:\n            *   Simular cenários estratégicos (\"E se...?\").\n            *   Analisar tendências de mercado e relatórios de concorrência para fundamentar o planejamento.\n            *   Auxiliar na redação ou revisão de diretrizes e políticas, assegurando clareza e alinhamento.\n        *   **Para \"Clientes, Sociedade & Inovação\" (Critérios 4, 5, 6):** Ilustre como o Grok pode:\n            *   Processar milhões de feedbacks de clientes (reviews, surveys) para identificar *insights* ocultos e oportunidades de melhoria.\n            *   Gerar ideias para novos produtos/serviços ou melhorias de processos com base em tendências globais.\n            *   Apoiar na análise de impacto social e ambiental de decisões.\n        *   **Para \"Pessoas & Processos\" (Critérios 7, 8):** Mostre como o Grok pode:\n            *   Atuar como um tutor personalizado para equipes, explicando conceitos complexos de gestão (ex.: PDCA, BSC).\n            *   Otimizar fluxos de trabalho sugerindo melhorias em processos com base em descrições textuais.\n            *   Auxiliar na análise de dados de desempenho operacional para identificar causas raiz de problemas.\n\n3.  **O Diferencial Grok: Por que é a Ferramenta Certa para Líderes FNQ (3-4 min):**\n    *   **Personalidade e Contextualização:** Enfatize a capacidade do Grok de adaptar seu tom – de formal e analítico para descontraído e criativo – conforme a necessidade, facilitando a comunicação em diferentes níveis da organização.\n    *   **Raciocínio Socrático:** Destaque que o Grok não dá apenas respostas; ele faz perguntas desafiadoras que forçam o reexame de premissas, um pilar da melhoria contínua.\n    *   **Abordagem Sistêmica:** Explique que o Grok é treinado para entender conexões complexas, ajudando a evitar pensamento em \"silos\" e promovendo uma visão integrada da organização, essencial para o MEG.\n\n4.  **Chamada para Ação & Próximos Passos (1-2 min):**\n    *   Proponha um \"Projeto Piloto de Excelência\": usar o Grok para um desafio real e delimitado da empresa (ex.: análise de um processo específico, brainstorming para um critério do MEG, revisão de uma estratégia).\n    *   Finalize com uma visão inspiradora: posicionar a organização na vanguarda, usando a IA não para substituir o modelo de excelência, mas para potencializá-lo a níveis inéditos.\n\n**Formato de Saída Esperado:** Um roteiro claro, com tópicos e *bullet points* para cada seção, linguagem executiva (clara, concisa e focada em resultados) e pelo menos um exemplo concreto de aplicação para cada grupo de critérios do MEG22 mencionado." 
-    },
-    { 
-      name: "Napkin AI", 
-      url: "https://www.napkin.ai/", 
-      prompt: "Crie um fluxograma visual com base neste processo de decisão empresarial, destacando riscos e oportunidades: [Produção presencia e observa o ato da não conformidade em andamento, registra no smartphone no aplicativo MEG22, registro que segue para a central de riscos que deve capturar novas fontes de imagens como câmeras ou outros vigilantes, supervisores ou gerentes da área, depois este comunicado de risco é classificado corretamente, identificado com detalhes e coordenadas e tratado para mitigar próximas não conformidades evitando seu agravamento.]" 
-    },
-    { 
-      name: "Pageon AI", 
-      url: "https://www.pageon.ai/", 
-      prompt: "Prompt Estratégico para PageOn.ai: Criar uma apresentação executiva (máximo de 8 a 10 slides ou páginas) com um relatório visual aprofundado e estratégico. Formato da Saída: Apresentação Executiva/Relatório Visual Dinâmico. Público-alvo: Conselho Estratégico/CEO. Tom e Estilo: Profissional, conciso, data-driven (orientado por dados), e com visualização de dados de alto impacto (estilo \"Vibe Creation\" elegante e moderno)." 
-    },
-    { 
-      name: "Bolt.new", 
-      url: "https://bolt.new/", 
-      prompt: "Crie uma aplicação web avançada 'GOV-RISK AI DASHBOARD 2025' com as seguintes características: LAYOUT PRINCIPAL: Header fixo com logo, título e seletor de tema (light/dark), Sidebar colapsável com navegação: Dashboard, Diagnóstico, Riscos, Documentos, Simulador, Área de conteúdo principal com sistema de grid responsivo. MÓDULO 1 - AUTO-DIAGNÓSTICO: Implemente um questionário interativo com 5 seções deslizantes (Estratégia, Processos, Tecnologia, Pessoas, Dados). MÓDULO 2 - PAINEL DE RISCOS: Crie um dashboard visual com 3 colunas: Riscos Críticos, Moderados, Baixos. MÓDULO 3 - ANALISADOR DE DOCUMENTOS: Desenvolva um sistema de upload com área de drop para PDFs. MÓDULO 4 - SIMULADOR DE CENÁRIOS: Implemente controles interativos para Taxa de juros, Inflação, Crescimento do PIB." 
-    },
-    { 
-      name: "ElevenLabs", 
-      url: "https://elevenlabs.io/", 
-      prompt: "Este prompt visa maximizar a utilização dos recursos de Vozes Executivas, ajuste de Estabilidade (para tom confiante) e Clareza/Ênfase (para impacto emocional) do ElevenLabs. O discurso deve ser curto, focado em uma única ideia poderosa, e entregar valor imediato ao executivo, posicionando a IA de voz como uma ferramenta estratégica de liderança. CONFIGURAÇÃO DA VOZ: Escolher uma voz da biblioteca ElevenLabs que se encaixe no perfil de \"Executive\" ou \"Corporate Titan\" (tom grave, autoritário, seguro, com leve sotaque neutro/profissional). Estabilidade: Alto (90-100%). Ênfase: Médio-Alto (65-75%). TEXTO DO DISCURSO: \"Executivos, Conselheiros: Hoje, falamos sobre a próxima fronteira da estratégia. Não é apenas o que a IA pode fazer. É como você comunica o seu valor. O seu conhecimento vale milhões. Mas o silêncio, o ritmo, a autoridade da sua voz... valem o mercado inteiro.\"" 
-    },
-    { 
-      name: "Stable Diffusion", 
-      url: "https://stabledifffusion.com/", 
-      prompt: "Estilo/Renderização: photorealistic, cinematic lighting, ultra detailed, hyperrealistic, octane render, volumetric lighting, sharp focus, epic composition, high dynamic range, digital painting, masterpiece, professional photography, RAW photo. Assunto Principal (A Guerreira Disruptiva): sensual, fierce warrior woman, athletic body, muscular definition, (intricate dark chrome armor:1.3) with glowing cyan energy lines, form-fitting, practical yet alluring design, (exposed midriff and strong abs:1.1), long flowing dark hair with glowing streaks, holding a massive, glowing greatsword (sci-fi design, plasma blade:1.2), her face showing defiant determination, intense blue eyes, battle scars, ready for war, dynamic pose, leaning forward, **breaking an advanced robotic arm of a car production line with her sword**, sparks flying, debris of metal, sense of powerful impact." 
-    },
-    { 
-      name: "HailuoAI", 
-      url: "https://hailuoai.video/", 
-      prompt: "Anime a foto selfie enviada em estilo profissional. O sujeito está falando em uma palestra, com a boca se articulando de forma natural e aberta para a fala. Os braços e as mãos fazem gestos expressivos e articulados para enfatizar a mensagem (apontar, abrir as palmas). Postura engajada e confiante. Expressão facial entusiasmada. Câmera estável com foco do peito para cima. Estilo realista e em alta definição." 
-    },
-    { 
-      name: "InVideo", 
-      url: "https://invideo.io/", 
-      prompt: "Prompt para Vídeo Impactante no InVideo: MEG 2.2 - Vanguarda da Qualidade\n\n[Introdução - Problema e Solução]\n\"Comece com uma cena que evoque desafios ou incertezas comuns na gestão. Transição rápida para a imagem do logo 'MEG 2.2'. Texto na tela: 'Você está pronto para o futuro da gestão de excelência?'\"\n\n[Corpo 1 - Implantação e Certificação]\n\"Mostre gráficos limpos e modernos com texto animado sobre 'Implantação do MEG 2.2'. Inclua ícones que representem processos simplificados, inovação e sustentabilidade. Cena seguinte: um certificado digital brilhante, com texto 'Certificação MEG 2.2: O Selo da Excelência'. Breves flashes de pessoas colaborando em ambientes corporativos modernos.\"\n\n[Corpo 2 - Vantagens de Estar na Vanguarda da Qualidade]\n\"Apresente uma série de cenas dinâmicas que ilustrem as maiores vantagens:\n\nInovação Contínua: Pessoas em uma sala de brainstorming com telas interativas.\n\nEficiência Operacional: Gráficos de barras subindo rapidamente, engrenagens girando suavemente.\n\nSustentabilidade e Responsabilidade Social: Imagens de painéis solares, cidades verdes ou projetos comunitários.\n\nCrescimento Sustentável: Uma planta brotando e crescendo rapidamente.\n\nVantagem Competitiva: Um corredor de empresa com a porta 'MEG 2.2' à frente, enquanto outras portas ficam para trás, mais escuras.\n\nReputação e Confiança: Cliente satisfeito apertando a mão de um profissional, logo de empresa com avaliação positiva.\"\n\n[Conclusão - Chamada para Ação]\n\"Retorne ao logo 'MEG 2.2'. Texto na tela: 'Não apenas siga as tendências. Crie-as.' ou 'Transforme sua organização com o MEG 2.2'. Finalize com informações de contato ou site da sua empresa.\"\n\nElementos Visuais e Sonoros Sugeridos para o InVideo:\nEstilo Visual: \"Gráficos de movimento limpos, modernos e futuristas. Transições suaves e dinâmicas. Cores predominantemente azuis, brancas e prateadas, transmitindo profissionalismo e tecnologia.\"\n\nMúsica de Fundo: \"Trilha sonora inspiradora e motivacional, com batida moderna e crescente, culminando em um clímax na conclusão.\"\n\nVoz Over (se aplicável): \"Narração profissional, masculina ou feminina, com tom confiante e articulado, explicando os benefícios de cada etapa.\"\n\nTexto na Tela: \"Use fontes claras e modernas. Pontos-chave em destaque para fácil leitura.\"" 
-    }
+    {name:"CEGIA2025", url:"https://sergioakiratavaressato.github.io/cegia2025", prompt:"Bem-vindo ao projeto CEG IA 2025!"},
+    {name:"ChatGPT", url:"https://chatgpt.com", prompt:"Você é um consultor especialista em IA Generativa aplicado à gestão da qualidade..."},
+    {name:"Gemini", url:"https://gemini.google.com", prompt:"Gere uma análise visual em formato de infográfico interativo..."},
+    {name:"DeepSeek", url:"https://chat.deepseek.com", prompt:"Crie um jogo Tetris interativo..."},
+    {name:"Grok", url:"https://grok.com", prompt:"O Prompt Definitivo para apresentação do Grok a Executivos FNQ..."},
+    {name:"Napkin AI", url:"https://napkin.ai", prompt:"Crie um fluxograma visual baseado no processo..."},
+    {name:"PageOn", url:"https://pageon.ai", prompt:"Crie uma apresentação executiva..."},
+    {name:"Bolt.new", url:"https://bolt.new", prompt:"Crie uma aplicação web GOV-RISK AI..."},
+    {name:"ElevenLabs", url:"https://elevenlabs.io", prompt:"Discurso executivo sintetizado..."},
+    {name:"Stable Diffusion", url:"https://stabledifffusion.com", prompt:"Renderização photorealistic..."},
+    {name:"HailuoAI", url:"https://hailuoai.video", prompt:"Anime a selfie enviada..."},
+    {name:"InVideo", url:"https://invideo.io", prompt:"Prompt para vídeo MEG 2.2..."}
   ];
 
   let index = 0;
@@ -570,35 +507,17 @@
     document.getElementById("toolName").innerText = tool.name;
     document.getElementById("visit").href = tool.url;
     document.getElementById("progress").innerText = `${index + 1} / ${tools.length}`;
-    
+
     const qrBox = document.getElementById("qr");
     qrBox.innerHTML = "";
-    
-    try {
-      new QRCode(qrBox, { 
-        text: tool.url, 
-        width: 220, 
-        height: 220 
-      });
-    } catch (error) {
-      console.error("Erro ao gerar QR Code:", error);
-      qrBox.innerHTML = "<p>Erro ao carregar QR Code</p>";
-    }
-    
+    new QRCode(qrBox, { text: tool.url, width: 220, height: 220 });
+
     highlightActiveItem();
   }
 
-  function next() { 
-    index = (index + 1) % tools.length; 
-    generateSlideQR(); 
-  }
-  
-  function prev() { 
-    index = (index - 1 + tools.length) % tools.length; 
-    generateSlideQR(); 
-  }
+  function next() { index = (index + 1) % tools.length; generateSlideQR(); }
+  function prev() { index = (index - 1 + tools.length) % tools.length; generateSlideQR(); }
 
-  // Adicionar event listeners aos itens da lista
   document.querySelectorAll('.list .item').forEach((item, i) => {
     item.addEventListener('click', () => {
       index = i;
@@ -611,80 +530,38 @@
     const overlay = document.getElementById("overlay");
     const text = document.getElementById("promptText");
     const accessBtn = document.getElementById("accessIA");
-    
     const tool = tools[index];
-    text.textContent = tool.prompt || "Nenhum prompt definido.";
+
+    text.textContent = tool.prompt || "Sem prompt.";
     accessBtn.href = tool.url;
-    
+
     overlay.classList.add("active");
   }
-  
+
   function closePrompt() {
-    document.getElementById("overlay").classList.remove("active");
-    // Reset do botão copiar
-    const copyBtn = document.querySelector('.copy-btn');
-    copyBtn.classList.remove('copied');
-    copyBtn.innerHTML = '📋 Copiar Prompt';
+    const overlay = document.getElementById("overlay");
+    overlay.classList.remove("active");
+
+    const btn = document.querySelector('.copy-btn');
+    btn.classList.remove('copied');
+    btn.innerHTML = "📋 Copiar Prompt";
   }
-  
+
   function copyPrompt() {
-    const promptText = document.getElementById('promptText').textContent;
-    const copyBtn = document.querySelector('.copy-btn');
-    
-    navigator.clipboard.writeText(promptText).then(() => {
-      // Feedback visual
-      copyBtn.classList.add('copied');
-      copyBtn.innerHTML = '✅ Copiado!';
-      
-      // Reset após 2 segundos
-      setTimeout(() => {
-        copyBtn.classList.remove('copied');
-        copyBtn.innerHTML = '📋 Copiar Prompt';
-      }, 2000);
-    }).catch(err => {
-      console.error('Erro ao copiar: ', err);
-      // Fallback para dispositivos mais antigos
-      const textArea = document.createElement('textarea');
-      textArea.value = promptText;
-      document.body.appendChild(textArea);
-      textArea.select();
-      document.execCommand('copy');
-      document.body.removeChild(textArea);
-      
-      copyBtn.classList.add('copied');
-      copyBtn.innerHTML = '✅ Copiado!';
-      setTimeout(() => {
-        copyBtn.classList.remove('copied');
-        copyBtn.innerHTML = '📋 Copiar Prompt';
-      }, 2000);
-    });
+    const text = document.getElementById('promptText').textContent;
+    navigator.clipboard.writeText(text);
+
+    const btn = document.querySelector('.copy-btn');
+    btn.classList.add('copied');
+    btn.innerHTML = "✅ Copiado!";
+
+    setTimeout(() => {
+      btn.classList.remove('copied');
+      btn.innerHTML = "📋 Copiar Prompt";
+    }, 2000);
   }
 
-  // Fechar modal com ESC
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') {
-      closePrompt();
-    }
-  });
-
-  // Fechar modal clicando fora
-  document.getElementById('overlay').addEventListener('click', (e) => {
-    if (e.target === document.getElementById('overlay')) {
-      closePrompt();
-    }
-  });
-
-  // Inicializar quando o DOM estiver carregado
-  document.addEventListener("DOMContentLoaded", () => {
-    generateSlideQR();
-  });
-
-  // Fallback caso o DOMContentLoaded não funcione
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', generateSlideQR);
-  } else {
-    generateSlideQR();
-  }
+  document.addEventListener("DOMContentLoaded", generateSlideQR);
 </script>
 
 </body>
