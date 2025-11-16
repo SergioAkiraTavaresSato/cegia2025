@@ -53,11 +53,13 @@
 
 /* torna a foto proporcional, grande e nítida */
 .profile-photo img {
-  width: auto;            /* impede o zoom absurdo */
-  height: 100%;           /* usa a altura como referência */
-  object-fit: cover;    /* mostra a foto inteira sem cortar */
-  object-position: center;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  transform: scale(1.3); /* 30% de zoom */
 }
+
 
 
     .profile-text {
@@ -572,6 +574,7 @@
 
 </body>
 </html>
+
 
 
 
